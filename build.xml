@@ -39,6 +39,7 @@
 			<available file="${mcpsrc.dir}/buildcraft" type="dir"/>
 			<available file="${mcpsrc.dir}/ic2" type="dir"/>
 			<!--<available file="${mcpsrc.dir}/thermalexpansion" type="dir"/>-->
+			<available file="${mcpsrc.dir}/tconstruct" type="dir"/>
 		</and>
 	</condition>
 	
@@ -67,6 +68,9 @@
 		
 		<echo message="Downloading AppEng API..." />
 		<get src="http://ae-mod.info/releases/appeng-rv13-c-mc162.jar" dest="${download.dir}/appeng.zip"/>
+		
+		<echo message="Downloading TConstruct Library..." />
+		<get src="https://dl.dropboxusercontent.com/u/42769935/Tinker_1.6.2/TConstruct_Library_1.6.4_5.0.0.zip" dest="${download.dir}/TConstruct-library.zip" />
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies" unless="${have-apis}">
@@ -92,6 +96,10 @@
 		<delete file="${download.dir}/appeng" />
 		<unzip src="${download.dir}/appeng_api.zip" dest="${download.dir}" />
 		<move file="${download.dir}/appeng" todir="${mcpsrc.dir}" />
+		
+		<echo message="Extracting TConstruct Library... " />
+		<unzip src="${download.dir}/TConstruct-library.zip" dest="${download.dir}" />
+		<move file="${download.dir}/tconstruct" todir="${mcpsrc.dir}" />
 	</target>
 
 
@@ -175,6 +183,7 @@
 		<delete dir="${mcp.dir}/reobf/minecraft/ic2"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/powercrystals/core"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/appeng"/>
+		<delete dir="${mcp.dir}/reobf/minecraft/tconstruct"/>
 		
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>

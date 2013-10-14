@@ -15,7 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import tconstruct.library.crafting.Smeltery;
 
 public enum Ores
 {
@@ -154,6 +156,18 @@ public enum Ores
 			CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
 			CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
 		}//*/
+
+		if(NetherOresCore.enableSmelteryRecipes.getBoolean(true) && Loader.isModLoaded("TConstruct"))
+		{
+			FluidStack meltTo = Smeltery.getSmelteryResult(smeltStack.copy());
+
+			if(meltTo != null)
+			{
+				meltTo = meltTo.copy();
+				meltTo.amount *= _smeltCount;
+				Smeltery.addMelting(NetherOresCore.getOreBlock(_blockIndex), _metadata, Smeltery.getLiquifyTemperature(smeltStack.copy()), meltTo);
+			}
+		}
 	}
 	
 	public void registerMacerator(ItemStack maceStack)

@@ -70,6 +70,7 @@ public class NetherOresCore extends BaseMod
 	public static Property enablePulverizerRecipes;
 	public static Property enableInductionSmelterRecipes;
 	public static Property enableGrinderRecipes;
+	public static Property enableSmelteryRecipes;
 	public static Property forceOreSpawn;
 	public static Property worldGenAllDimensions;
 	public static Property enableHellQuartz;
@@ -124,7 +125,7 @@ public class NetherOresCore extends BaseMod
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e)
 	{
-		if(enableStandardFurnaceRecipes.getBoolean(true) || enableInductionSmelterRecipes.getBoolean(true))
+		if(enableStandardFurnaceRecipes.getBoolean(true) || enableInductionSmelterRecipes.getBoolean(true) || enableSmelteryRecipes.getBoolean(true))
 		{
 			Ores.coal.registerSmelting(new ItemStack(Block.oreCoal));
 			Ores.diamond.registerSmelting(new ItemStack(Block.oreDiamond));
@@ -226,6 +227,8 @@ public class NetherOresCore extends BaseMod
 		enableInductionSmelterRecipes.comment = "Set this to false to remove the TE Induction Smelter recipes (ie, nether iron ore -> 2x normal iron ore).";
 		enableGrinderRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableGrinderRecipes", true);
 		enableGrinderRecipes.comment = "Set this to false to remove the AE Grind Stone recipes (ie, nether iron ore -> 4x iron dust).";
+		enableSmelteryRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableSmelteryRecipes", true);
+		enableSmelteryRecipes.comment = "Set this to false to remove the TConstruct Smeltery recipes (ie, nether iron ore -> 576mb liquid iron).";
 		forceOreSpawn = c.get(Configuration.CATEGORY_GENERAL, "ForceOreSpawn", false);
 		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
 		enableHellfish = c.get(Configuration.CATEGORY_GENERAL, "HellfishEnable", true);
